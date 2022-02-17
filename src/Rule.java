@@ -1,47 +1,79 @@
 
 
 public class Rule {
+
 	private int wolfram_code;
+
 	private boolean[] temp;
-	private final int[] rule = {0,1,2,3,4,5,6,7};
-	
-	//convert to binary now?? Integer.toBinaryString(ruleNum);
+
+	private final int[] rule = { 0, 1, 2, 3, 4, 5, 6, 7 };
+
 	public Rule(int ruleNum) {
-		String w_rule = "";
+
 		if (ruleNum < 0) {
-			ruleNum = 1;
+
+			ruleNum = 0;
+
 		}
+
 		if (ruleNum > 256) {
-			ruleNum = 256;
+
+			ruleNum = 255;
+
 		}
-		
-		w_rule = String.format("%8s", Integer.toBinaryString(ruleNum)).replace(' ', '0');
+
+		wolfram_code = ruleNum;
+
+		// String.format("%8s", Integer.toBinaryString(ruleNum)).replace(' ', '0');
+		// ********
 	}
-	//needs to return # of rule so rule method can determine state ?
+
+	// needs to return # of rule so rule method can determine state ?
 	public int getRuleNum() {
+
 		return wolfram_code;
-	}
-	//use toBinaryString??
-	public static boolean[] getNeighborhood(int idx, Generation gen) {
+
+
+		//use toBinaryString??
+		public static boolean[] getNeighborhood(int idx, Generation gen) {
+
+		}
 		boolean[] temp = new boolean[gen.size()];
+
+		//circular boundaries
+
 		if (idx == 0) {
+
 			temp[0] = gen.getState(gen.size()-1);
+
 			temp[1] = gen.getState(idx);
+
 			temp[2] = gen.getState(idx + 1);
+
 		} else if (idx == gen.size() - 1) {
+
 			temp[0] = gen.getState(idx - 1);
+
 			temp[1] = gen.getState(idx);
 			temp[2] = gen.getState(0);
+
 		} else {
+
 			for (int i = idx - 1; i <= idx + 1; i++) {
+
 				temp[i] = gen.getState(i);
 			}
 		}
+
 		return temp;
 	}
-	//return next state of a cell w given neighborhoods
+
+	// return next state of a cell w given neighborhoods
+
 	public boolean evolve(boolean[] neighborhood) {
+
 		for (int i = 0; i < temp.length; i++) {
+
 			if (neighborhood[0] && neighborhood[1] && neighborhood[2]) {
 				temp[i] = rule[0];
 			}
@@ -67,11 +99,11 @@ public class Rule {
 				temp[i] = rule[7];
 			}
 		}
-			
+
 		return temp[i];
 	}
-	
+
 	public Generation evolve(Generation gen) {
-		//apply rule to gen and return next generation
+		// apply rule to gen and return next generation
 	}
 }
