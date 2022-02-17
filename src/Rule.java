@@ -1,5 +1,4 @@
 
-
 public class Rule {
 
 	private int wolfram_code;
@@ -32,19 +31,18 @@ public class Rule {
 	public int getRuleNum() {
 
 		return wolfram_code;
+	}
 
+	// use toBinaryString??
+	public static boolean[] getNeighborhood(int idx, Generation gen) {
 
-		//use toBinaryString??
-		public static boolean[] getNeighborhood(int idx, Generation gen) {
+		boolean[] temp = new boolean[3];
 
-		}
-		boolean[] temp = new boolean[gen.size()];
-
-		//circular boundaries
+		// circular boundaries
 
 		if (idx == 0) {
 
-			temp[0] = gen.getState(gen.size()-1);
+			temp[0] = gen.getState(gen.size() - 1);
 
 			temp[1] = gen.getState(idx);
 
@@ -55,14 +53,17 @@ public class Rule {
 			temp[0] = gen.getState(idx - 1);
 
 			temp[1] = gen.getState(idx);
+
 			temp[2] = gen.getState(0);
 
 		} else {
 
-			for (int i = idx - 1; i <= idx + 1; i++) {
+			temp[0] = gen.getState(idx - 1);
 
-				temp[i] = gen.getState(i);
-			}
+			temp[1] = gen.getState(idx);
+
+			temp[2] = gen.getState(idx + 1);
+
 		}
 
 		return temp;
@@ -70,37 +71,29 @@ public class Rule {
 
 	// return next state of a cell w given neighborhoods
 
-	public boolean evolve(boolean[] neighborhood) {
+	public static boolean evolve(boolean[] neighborhood) {
+		
+		boolean value;
 
-		for (int i = 0; i < temp.length; i++) {
-
-			if (neighborhood[0] && neighborhood[1] && neighborhood[2]) {
-				temp[i] = rule[0];
-			}
-			if (neighborhood[0] && neighborhood[1] && !neighborhood[2]) {
-				temp[i] = rule[1];
-			}
-			if (neighborhood[0] && !neighborhood[1] && neighborhood[2]) {
-				temp[i] = rule[2];
-			}
-			if (neighborhood[0] && !neighborhood[1] && !neighborhood[2]) {
-				temp[i] = rule[3];
-			}
-			if (!neighborhood[0] && neighborhood[1] && neighborhood[2]) {
-				temp[i] = rule[4];
-			}
-			if (!neighborhood[0] && neighborhood[1] && !neighborhood[2]) {
-				temp[i] = rule[5];
-			}
-			if (!neighborhood[0] && !neighborhood[1] && neighborhood[2]) {
-				temp[i] = rule[6];
-			}
-			if (!neighborhood[0] && !neighborhood[1] && !neighborhood[2]) {
-				temp[i] = rule[7];
-			}
+		if (neighborhood[0] && neighborhood[1] && neighborhood[2]) {
+			value = true;
+		} else if (neighborhood[0] && neighborhood[1] && !neighborhood[2]) {
+			value = false;
+		} else if (neighborhood[0] && !neighborhood[1] && neighborhood[2]) {
+			value = false;
+		} else if (neighborhood[0] && !neighborhood[1] && !neighborhood[2]) {
+			value = true;
+		} else if (!neighborhood[0] && neighborhood[1] && neighborhood[2]) {
+			value = false;
+		} else if (!neighborhood[0] && neighborhood[1] && !neighborhood[2]) {
+			value = true;
+		} else if (!neighborhood[0] && !neighborhood[1] && neighborhood[2]) {
+			value = true;
+		} else {
+			value = true;
 		}
-
-		return temp[i];
+		//(!neighborhood[0] && !neighborhood[1] && !neighborhood[2])
+		return value;
 	}
 
 	public Generation evolve(Generation gen) {
