@@ -1,43 +1,81 @@
+import java.util.Arrays;
 
 public class Generation {
 	private boolean[] cellStates;
 
 	public boolean[] getStates() {
-		return cellStates;
+		
+		boolean[] output = new boolean[cellStates.length];
+		
+		for (int i = 0; i < cellStates.length; i++) {
+			
+			output[i] = cellStates[i];
+		}
+		return output;
 	}
 
 	public boolean getState(int idx) {
+		
 		return cellStates[idx];
 	}
-
+//getStates is from Keon 
 	public String getStates(char falseSymbol, char trueSymbol) {
-		return cellStates.toString();
+		
+		String output = "";
+		
+		for (int i = 0; i < size(); i++) {
+			
+			if (cellStates[i] == true) {
+				
+				output = output + trueSymbol;
+				
+			} else {
+				
+				output = output + falseSymbol;
+			}
+		}
+		return output;
 	}
 
 	public int size() {
+		
 		return cellStates.length;
 	}
 
-	Generation(boolean... states) {
+	public Generation(boolean... states) {
+		
 		if (states == null || states.length == 0) {
-			cellStates[0] = false;
+			
+			boolean[] falseB = {false};
+			
+			cellStates = Arrays.copyOf(falseB, falseB.length);
+			
 		} else {
-			for (int i = 0; i < states.length; i++) {
-				cellStates[i] = states[i];
-			}
+			
+			cellStates = Arrays.copyOf(states, states.length);
 		}
-
 	}
-
-	Generation(String states, char trueSymbol) {
-		char[] arr = states.toCharArray();
-		if (states == null || states.isEmpty()) {
-			cellStates[0] = false;
+//Generation (states,trueSymbol) is from Keon
+	public Generation(String states, char trueSymbol) {
+		
+		boolean[] f = {false};
+		
+		if (states == null || states == "") {
+			
+			cellStates = f;
+			
 		} else {
-			for (int i = 0; i < arr.length; i++) {
-				if (arr[i] == trueSymbol) {
+			
+			cellStates = new boolean[states.length()];
+			
+			for (int i = 0; i < states.length(); i++) {
+				
+				if (states.charAt(i) == trueSymbol) {
+					
 					cellStates[i] = true;
+					
 				} else {
+					
 					cellStates[i] = false;
 				}
 			}
