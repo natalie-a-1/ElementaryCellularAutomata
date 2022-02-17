@@ -27,7 +27,8 @@ public class Automaton {
 	}
 	
 	public Automaton(int ruleNum, Generation intiial) {
-		
+		falseSymbol = '0';
+		trueSymbol = '1';
 	}
 	
 	public Automaton(String filename) {
