@@ -1,11 +1,10 @@
+import java.util.Arrays;
 
 public class Rule {
 
-	private int wolfram_code;
-
-	private boolean[] temp;
-
-	private final int[] rule = { 0, 1, 2, 3, 4, 5, 6, 7 };
+	private static int wolfram_code;
+	
+	public static boolean[] rules = new boolean[8];
 
 	public Rule(int ruleNum) {
 
@@ -15,25 +14,34 @@ public class Rule {
 
 		}
 
-		if (ruleNum > 256) {
+		if (ruleNum > 255) {
 
 			ruleNum = 255;
 
 		}
-
+		
 		wolfram_code = ruleNum;
-
-		// String.format("%8s", Integer.toBinaryString(ruleNum)).replace(' ', '0');
-		// ********
+		
+		String temp = String.format("%8s", Integer.toBinaryString(wolfram_code));
+		
+		for (int i = 0; i < temp.length(); i++) {
+			
+			if (temp.charAt(temp.length()-i-1)== '0') {
+				
+				rules[i] = false; 
+				
+			} else if (temp.charAt(temp.length()-i-1) == '1') {
+				
+				rules[i] = true;
+			}
+		};
 	}
 
-	// needs to return # of rule so rule method can determine state ?
 	public int getRuleNum() {
 
 		return wolfram_code;
 	}
 
-	// use toBinaryString??
 	public static boolean[] getNeighborhood(int idx, Generation gen) {
 
 		boolean[] temp = new boolean[3];
@@ -69,34 +77,77 @@ public class Rule {
 		return temp;
 	}
 
-	// return next state of a cell w given neighborhoods
+	// Evolve(neighborhood) method is from Keon
 
 	public static boolean evolve(boolean[] neighborhood) {
 		
-		boolean value;
-
-		if (neighborhood[0] && neighborhood[1] && neighborhood[2]) {
-			value = true;
-		} else if (neighborhood[0] && neighborhood[1] && !neighborhood[2]) {
-			value = false;
-		} else if (neighborhood[0] && !neighborhood[1] && neighborhood[2]) {
-			value = false;
-		} else if (neighborhood[0] && !neighborhood[1] && !neighborhood[2]) {
-			value = true;
-		} else if (!neighborhood[0] && neighborhood[1] && neighborhood[2]) {
-			value = false;
-		} else if (!neighborhood[0] && neighborhood[1] && !neighborhood[2]) {
-			value = true;
-		} else if (!neighborhood[0] && !neighborhood[1] && neighborhood[2]) {
-			value = true;
-		} else {
-			value = true;
+		boolean value = false;
+			
+		boolean [] t1 = {false, false,false};
+		
+		boolean [] t2 = {false, false, true};
+		
+		boolean [] t3 = {false, true,false};
+		
+		boolean [] t4 = {false, true ,true};
+		
+		boolean [] t5 = {true, false,false};
+		
+		boolean [] t6 = {true, false,true};
+		
+		boolean [] t7 = {true, true, false};
+		
+		boolean [] t8 = {true, true, true};
+		
+		
+		if (Arrays.equals(neighborhood, t1)) {
+			
+			value = rules[0];
+			
+		} else if (Arrays.equals(neighborhood, t2)) {
+			
+			value = rules[1];
+			
+		} else if (Arrays.equals(neighborhood, t3)) {
+			
+			value = rules[2];
+			
+		} else if (Arrays.equals(neighborhood, t4)) {
+			
+			value = rules[3];
+			
+		} else if (Arrays.equals(neighborhood, t5)) {
+			
+			value = rules[4];
+			
+		} else if (Arrays.equals(neighborhood, t6)) {
+			
+			value = rules[5];
+			
+		} else if (Arrays.equals(neighborhood, t7)) {
+			
+			value = rules[6];
+			
+		} else if (Arrays.equals(neighborhood, t8)){
+			
+			value = rules[7];
 		}
-		//(!neighborhood[0] && !neighborhood[1] && !neighborhood[2])
 		return value;
+		
 	}
+	
 
 	public Generation evolve(Generation gen) {
-		// apply rule to gen and return next generation
+		
+		boolean[] arr = new boolean[gen.size()];
+		
+		//for loop from Aaron Coker
+		
+		for (int i = 0; i < gen.size(); i++) {
+			
+			arr[i] = evolve(getNeighborhood(i, gen));
+			
+		}
+		return new Generation(arr);
 	}
 }
