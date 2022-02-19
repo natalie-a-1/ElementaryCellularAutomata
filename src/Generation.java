@@ -20,7 +20,7 @@ public class Generation {
 		return arr[idx];
 	}
 
-	//getStates is from Keon 
+	// getStates is from Keon
 	public String getStates(char falseSymbol, char trueSymbol) {
 
 		String output = "";
@@ -59,7 +59,7 @@ public class Generation {
 		}
 	}
 
-	//Generation (states,trueSymbol) is from Keon
+	// Generation (states,trueSymbol) is from Keon
 	public Generation(String states, char trueSymbol) {
 
 		boolean[] f = { false };
