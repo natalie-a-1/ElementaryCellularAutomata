@@ -1,7 +1,8 @@
 import java.util.Arrays;
 
 public class Generation {
-	private boolean[] cellStates;
+	
+private boolean[] cellStates;
 
 	public boolean[] getStates() {
 
@@ -15,8 +16,9 @@ public class Generation {
 	}
 
 	public boolean getState(int idx) {
-		// boolean[] arr = cellStates.clone();
+		
 		boolean[] arr = Arrays.copyOf(cellStates, cellStates.length);
+		
 		return arr[idx];
 	}
 
@@ -40,8 +42,9 @@ public class Generation {
 	}
 
 	public int size() {
+		
 		boolean[] arr = Arrays.copyOf(cellStates, cellStates.length);
-		// boolean[] arr = cellStates.clone();
+		
 		return arr.length;
 	}
 
