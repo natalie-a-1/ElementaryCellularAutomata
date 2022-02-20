@@ -80,7 +80,7 @@ public class Rule {
 
 	// Evolve(neighborhood) method is from Keon
 
-	public static boolean evolve(boolean[] neighborhood) {
+	public boolean evolve(boolean[] neighborhood) {
 
 		boolean value = false;
 
