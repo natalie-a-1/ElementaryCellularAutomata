@@ -95,8 +95,6 @@ public class ConsoleApp {
 	}
 
 	private void setRuleAndGeneration() {
-		// TODO: Prompt the user to enter a new rule number and initial
-		// generation. Refer to the README for details.
 
 		System.out.print("Enter new rule number > ");
 
@@ -114,7 +112,7 @@ public class ConsoleApp {
 	}
 
 	private void setTrueSymbol() {
-		// TODO: Prompts the user to enter a new true symbol representation.
+
 		System.out.println("Current true symbol: " + automaton.trueSymbol);
 
 		System.out.print("New true symbol > ");
@@ -127,7 +125,7 @@ public class ConsoleApp {
 	}
 
 	private void setFalseSymbol() {
-		// TODO: Prompts the user to enter a new false symbol representation.
+
 		System.out.println("Current false symbol: " + automaton.falseSymbol);
 
 		System.out.print("New false symbol > ");
@@ -136,33 +134,39 @@ public class ConsoleApp {
 
 		char f = new_f.charAt(0);
 
-		automaton.trueSymbol = f;
+		automaton.falseSymbol = f;
 	}
 
 	private void evolve() {
-		// TODO: Prompt the user to enter a number of evolutions and evolves
-		// the Automaton.
+		
 		System.out.print("Enter number of evolutions > ");
 		
 		int numSteps = input.nextInt();
 		
 		automaton.evolve(numSteps);
 		
+		System.out.print("Evolved " + automaton.getTotalSteps() +  " generation(s)");
+		
 	}
 
 	private void printCurrentGeneration() {
 		// TODO: Print the current generation of the Automaton using the
 		// Automaton's true and false symbols.
-		System.out.println("Generation " + automaton.getGeneration());
 		
-		System.out.print(automaton.getCurrentGeneration());
+		
+		System.out.println("Generation " + automaton.getTotalSteps() + ":");
+		
+		System.out.print(automaton.getCurrentGeneration().getStates(automaton.falseSymbol, automaton.trueSymbol));
 	}
 
 	private void printFullEvolution() {
-		// TODO: Print the full evolution of the automaton.
+		
+		//use to string method output
+		automaton.toString();
 	}
 
 	private void printQuitMessage() {
-		// TODO: Print "Bye bye!"
+		
+		System.out.print("Bye bye!");
 	}
 }
