@@ -6,7 +6,6 @@ public class Automaton {
 	private ArrayList<Generation> generations = new ArrayList<Generation>();
 	public char falseSymbol = '0';
 	public char trueSymbol = '1';
-	public int evolutions;
 
 	public Generation getGeneration(int stepNum) {
 
@@ -53,7 +52,7 @@ public class Automaton {
 	}
 
 	public Automaton(String filename) {
-
+ //
 	}
 
 	public int evolve(int numSteps) {
@@ -68,7 +67,6 @@ public class Automaton {
 
 				generations.add(rule.evolve(getCurrentGeneration()));
 
-				//volutions++;
 			}
 			return numSteps;
 		}
