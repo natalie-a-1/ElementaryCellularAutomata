@@ -1,3 +1,8 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.StringJoiner;
 
@@ -39,9 +44,29 @@ public class Automaton {
 
 		return generations.size() - 1;
 	}
-
+//***********
 	public void saveEvolution(String filename) {
-
+		
+		BufferedWriter bw = new BufferedWriter(new FileWriter(filename));
+		
+		
+		while (bw != null) {
+			
+			bw.write(rule);
+			
+			bw.write("/n");
+			
+			bw.write(falseSymbol);
+			
+			bw.write("/n");
+			
+			bw.write(trueSymbol);
+			
+			bw.write("/n");
+		}
+		
+		bw.close();
+		
 	}
 
 	public Automaton(int ruleNum, Generation initial) {
@@ -50,11 +75,25 @@ public class Automaton {
 
 		rule = new Rule(ruleNum);
 	}
-
+	
+//***********
 	public Automaton(String filename) {
- //
+		
+		BufferedReader br = new BufferedReader(new FileReader(filename));
+		
+		while (br.readLine() != null) {
+			
+			rule = new Rule(br.read());
+			
+			//how do i read char in??
+			falseSymbol = (char) br.read();
+			
+			trueSymbol = (char) br.read();
+			
+			//how to initial evolution??
+		}
+			br.close();
 	}
-
 	public int evolve(int numSteps) {
 
 		if (numSteps <= 0) {
