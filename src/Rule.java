@@ -4,7 +4,7 @@ public class Rule {
 
 	private static int wolfram_code;
 
-	public static boolean[] rules = new boolean[8];
+	public boolean[] rules = new boolean[8];
 
 	public Rule(int ruleNum) {
 
@@ -35,7 +35,7 @@ public class Rule {
 				rules[i] = true;
 			}
 		}
-		;
+		
 	}
 
 	public int getRuleNum() {
