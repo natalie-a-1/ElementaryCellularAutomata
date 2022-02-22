@@ -1,9 +1,8 @@
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
+import java.io.File;
 import java.io.FileWriter;
-import java.io.PrintWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.StringJoiner;
 
 public class Automaton {
@@ -45,27 +44,13 @@ public class Automaton {
 		return generations.size() - 1;
 	}
 //***********
-	public void saveEvolution(String filename) {
+	public void saveEvolution(String filename) throws IOException {
 		
-		BufferedWriter bw = new BufferedWriter(new FileWriter(filename));
+		FileWriter fileOverRide = new FileWriter(filename, false);
 		
+		fileOverRide.write(this.toString());
 		
-		while (bw != null) {
-			
-			bw.write(rule);
-			
-			bw.write("/n");
-			
-			bw.write(falseSymbol);
-			
-			bw.write("/n");
-			
-			bw.write(trueSymbol);
-			
-			bw.write("/n");
-		}
-		
-		bw.close();
+		fileOverRide.close();
 		
 	}
 
@@ -77,23 +62,26 @@ public class Automaton {
 	}
 	
 //***********
-	public Automaton(String filename) {
+	public Automaton(String filename) throws IOException {
 		
-		BufferedReader br = new BufferedReader(new FileReader(filename));
+		Scanner sc = new Scanner(new File(filename));
 		
-		while (br.readLine() != null) {
-			
-			rule = new Rule(br.read());
-			
-			//how do i read char in??
-			falseSymbol = (char) br.read();
-			
-			trueSymbol = (char) br.read();
-			
-			//how to initial evolution??
-		}
-			br.close();
+        rule = new Rule(sc.nextInt());
+        
+        falseSymbol = sc.next().charAt(0);
+        
+        trueSymbol = sc.next().charAt(0);
+        
+        sc.nextLine();
+        
+        generations = new ArrayList<Generation>();
+        
+        generations.add(new Generation(sc.nextLine(), trueSymbol));
+        
+        sc.close();
 	}
+		
+	
 	public int evolve(int numSteps) {
 
 		if (numSteps <= 0) {
@@ -102,7 +90,7 @@ public class Automaton {
 
 		} else {
 
-			for (int i = 0; i < numSteps; i++) {
+			for (int i = 0; i < numSteps; i++) { //works at zero
 
 				generations.add(rule.evolve(getCurrentGeneration()));
 
