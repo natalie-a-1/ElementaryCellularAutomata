@@ -103,10 +103,21 @@ public class ConsoleApp {
 		System.out.print("Enter initial generation > ");
 
 		String gen = input.next();
-
-		automaton = new Automaton(num, new Generation(gen, automaton.trueSymbol));
+		
+		Generation generation = new Generation(gen, automaton.trueSymbol);
+		
+		char newTrue = automaton.trueSymbol;
+		
+		char newFalse = automaton.falseSymbol;
+		
+		automaton = new Automaton (num, generation);
+		
+		automaton.trueSymbol = newTrue;
+		
+		automaton.falseSymbol = newFalse;
 		
 		System.out.println("Rule number updated to " + automaton.getRuleNum());
+		
 		
 		printCurrentGeneration();
 	}
@@ -127,14 +138,12 @@ public class ConsoleApp {
 	private void setFalseSymbol() {
 
 		System.out.println("Current false symbol: " + automaton.falseSymbol);
-
+		
 		System.out.print("New false symbol > ");
+		
+		char new_f = input.next().charAt(0);
 
-		String new_f = input.next();
-
-		char f = new_f.charAt(0);
-
-		automaton.falseSymbol = f;
+		automaton.falseSymbol = new_f;
 	}
 
 	private void evolve() {
@@ -145,7 +154,7 @@ public class ConsoleApp {
 		
 		automaton.evolve(numSteps);
 		
-		System.out.print("Evolved " + automaton.getTotalSteps() +  " generation(s)");
+		System.out.println("Evolved " + automaton.getTotalSteps() +  " generation(s)");
 		
 	}
 
@@ -156,17 +165,18 @@ public class ConsoleApp {
 		
 		System.out.println("Generation " + automaton.getTotalSteps() + ":");
 		
-		System.out.print(automaton.getCurrentGeneration().getStates(automaton.falseSymbol, automaton.trueSymbol));
+		System.out.println(automaton.getCurrentGeneration().getStates(automaton.falseSymbol, automaton.trueSymbol));
+		
 	}
 
 	private void printFullEvolution() {
 		
 		//use to string method output
-		automaton.toString();
+		System.out.println(automaton.toString());
 	}
 
 	private void printQuitMessage() {
 		
-		System.out.print("Bye bye!");
+		System.out.println("Bye bye!");
 	}
 }
