@@ -75,7 +75,7 @@ private boolean[] cellStates;
 
 			cellStates = new boolean[states.length()];
 
-			for (int i = 0; i < states.length(); i++) {
+			for (int i = 0; i < states.length(); i++) { 
 
 				if (states.charAt(i) == trueSymbol) {
 
