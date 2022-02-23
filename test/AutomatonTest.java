@@ -1,6 +1,8 @@
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.io.IOException;
+
 import org.junit.jupiter.api.Test;
 
 class AutomatonTest {
@@ -71,5 +73,16 @@ class AutomatonTest {
 		eca.evolve(5);
 		assertEquals("001110000011100", 
 				eca.getCurrentGeneration().getStates(eca.falseSymbol, eca.trueSymbol));
+	}
+	
+	@Test
+	void testStringConstructor() throws IOException {    
+	    String inputFile = "automaton-input.txt";
+	    Automaton eca = new Automaton(inputFile);
+	    assertEquals(40, eca.getRuleNum());
+	    assertArrayEquals(new boolean[] { false, false, false, false, true, true, true, true, false },
+	            eca.getGeneration(0).getStates());
+	    assertEquals(0, eca.getTotalSteps());
+	    assertEquals("XXXXOOOOX", eca.toString());
 	}
 }
