@@ -44,12 +44,22 @@ public class Rule {
 	}
 
 	public static boolean[] getNeighborhood(int idx, Generation gen) {
+		
 
 		boolean[] temp = new boolean[3];
+		
+		// circular boundaries NEEDS TO BE FIXED
+		
 
-		// circular boundaries
-
-		if (idx == 0) {
+		if (gen.getStates().length == 1) { //????????????
+			
+			temp[0] = gen.getState(idx);
+			
+			temp[1] = gen.getState(idx);
+			
+			temp[2] = gen.getState(idx);
+			
+		} else if (idx == 0) {
 
 			temp[0] = gen.getState(gen.size() - 1);
 
