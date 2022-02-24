@@ -113,7 +113,7 @@ public class ConsoleApp {
 		automaton = new Automaton (num, generation);
 		
 		automaton.trueSymbol = newTrue;
-		
+		x
 		automaton.falseSymbol = newFalse;
 		
 		System.out.println("Rule number updated to " + automaton.getRuleNum());
