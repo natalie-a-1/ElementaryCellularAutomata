@@ -48,10 +48,10 @@ public class Rule {
 
 		boolean[] temp = new boolean[3];
 		
-		// circular boundaries NEEDS TO BE FIXED
+		// circular boundaries
 		
 
-		if (gen.getStates().length == 1) { //????????????
+		if (gen.getStates().length == 1) { 
 			
 			temp[0] = gen.getState(idx);
 			
